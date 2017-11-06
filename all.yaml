@@ -9,6 +9,8 @@ resources:
     type: OS::Nova::Server::K8sSlave
   instance_3:
     type: OS::Nova::Server::MongoDB
+  instance_4:
+    type: OS::Nova::Server::GlusterFS
 
 outputs:
   k8s_master_ip:
@@ -20,3 +22,6 @@ outputs:
   mongodb_ip:
     description: The IP address of the deployed instance
     value: { get_attr: [instance_3, first_address] }
+  glusterfs_ip:
+    description: The IP address of the deployed instance
+    value: { get_attr: [instance_4, first_address] }
