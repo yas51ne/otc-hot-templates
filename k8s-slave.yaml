@@ -1,0 +1,70 @@
+heat_template_version: 2015-04-30
+
+description: Simple template to deploy a single kubernetes slave instance
+
+parameters:
+  key_name:
+    type: string
+    label: Key Name
+    default: KeyPair-test-YM
+    description: Name of key-pair to be used for compute instance
+  image_id:
+    type: string
+    label: Image ID
+    default: Standard_CentOS_7.3_latest
+    description: Image to be used for compute instance
+  instance_type:
+    type: string
+    label: Instance Type
+    default: s1.xlarge
+    description: Type of instance (flavor) to be used
+  NetID:
+    type: string
+    default: 02178dcd-acc0-4c28-b21d-70bd963c4db0
+    description: Network ID to use for the instance.
+  admin_password:
+    type: string
+    default: e54@Cw5!
+    description: password of the root.
+  instance_name:
+    type: string
+    default: k8s-slave
+    description: Name of the Instance.
+  disk_size:
+    type: number
+    default: 100
+    description: Private IP of the Instance.
+
+resources:
+  my_instance:
+    type: OS::Nova::Server
+    properties:
+      name: { get_param: instance_name }
+      key_name: { get_param: key_name }
+      admin_pass: { get_param: admin_password }
+      image: { get_param: image_id }
+      flavor: { get_param: instance_type }
+      networks:
+      - network: { get_param: NetID }
+#      user_data:
+#        str_replace:
+#          template: {get_file: default_config.sh}
+
+  volume:
+    type: OS::Cinder::Volume
+    properties:
+      name: vdb
+      size: { get_param: disk_size }
+
+  volume_attachment:
+    type: OS::Cinder::VolumeAttachment
+    properties:
+      volume_id: { get_resource: volume }
+      instance_uuid: { get_resource: my_instance }
+
+
+outputs:
+  instance_ip:
+    description: The IP address of the deployed instance
+    value: { get_attr: [my_instance, first_address] }
+
