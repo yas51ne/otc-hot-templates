@@ -1,0 +1,5 @@
+resource_registry:
+
+    "OS::Nova::Server::K8sMaster": "file:///root/HOT/k8s-master.yaml"
+    "OS::Nova::Server::K8sSlave": "file:///root/HOT/k8s-slave.yaml"
+    "OS::Nova::Server::MongoDB": "file:///root/HOT/mongodb.yaml"
