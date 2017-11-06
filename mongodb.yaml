@@ -53,7 +53,7 @@ resources:
   volume:
     type: OS::Cinder::Volume
     properties:
-      name: vdb
+      name: mongodb
       size: { get_param: disk_size }
 
   volume_attachment:
