@@ -53,7 +53,7 @@ resources:
   volume:
     type: OS::Cinder::Volume
     properties:
-      name: vdb
+      name: k8s-slave
       size: { get_param: disk_size }
 
   volume_attachment:
