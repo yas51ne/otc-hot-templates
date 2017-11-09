@@ -1,0 +1,59 @@
+[linux@ecs-iaassine ~]$ cat yassinerc
+#!/bin/sh
+
+echo "########################################################################################################"
+echo "#                                                             __                                       #"
+echo "#                    ______ __  __  __  _____          ___   / /_____  _____                           #"
+echo "#                   / ____// / / / / / / ___/   ____  / __\`\/ __/ __ \/ ___/                           #"
+echo "#                  / /___ / /_/ /_/ / (__  )   /___/ / /_/ / /_/ /_/ (__  )                            #"
+echo "#                  \____/ \___/\___/ /____/          \__,_/\__/\____/____/                             #"
+echo "#                                                                                                      #"
+echo "#------------------------------------------------------------------------------------------------------#"
+echo "#           For any additional informations, feel free to contact yassine.maachi@atos.net              #"
+echo "########################################################################################################"
+
+#installing/updating otc-tools and OpenstackClient in case of it's not installed/updated
+sudo yum install -y otc-tools
+sudo yum  install -y  python-openstackclient
+
+##############################################
+# must create your ssh keypair in the OTC    #
+# Console first and provide the name of      #
+# your key to the variable KEY_NAME in       #
+# the "Generic nodes configuration" section  #
+##############################################
+
+#########################################vars###########################################################
+#Connection informations Cleanning
+unset OS_USERNAME
+unset OS_USER_DOMAIN_NAME
+unset OS_ DOMAIN_NAME
+unset OS_PASSWORD
+unset OS_INTERFACE
+unset OS_TENANT_NAME
+unset OS_PROJECT_NAME
+unset OS_AUTH_URL
+unset NOVA_ENDPOINT_TYPE
+unset OS_ENDPOINT_TYPE
+unset CINDER_ENDPOINT_TYPE
+unset OS_VOLUME_API_VERSION
+unset OS_IDENTITY_API_VERSION
+unset OS_IMAGE_API_VERSION
+
+#Personal connection informations
+export OS_USERNAME="XXXXXX OTC-EU-DE-00000000001000022981"
+export OS_USER_DOMAIN_NAME=OTC-EU-DE-00000000001000022981
+export OS_DOMAIN_NAME=OTC-EU-DE-00000000001000022981
+export OS_PASSWORD=XXXXXXXX
+# Only change these for a different region
+export OS_INTERFACE=public
+export OS_TENANT_NAME=eu-de
+export OS_PROJECT_NAME=eu-de
+export OS_AUTH_URL=https://iam.eu-de.otc.t-systems.com:443/v3
+# No changes needed beyond this point
+export NOVA_ENDPOINT_TYPE=publicURL
+export OS_ENDPOINT_TYPE=publicURL
+export CINDER_ENDPOINT_TYPE=publicURL
+export OS_VOLUME_API_VERSION=2
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
