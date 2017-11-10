@@ -30,11 +30,11 @@ parameters:
     type: string
     default: k8s-master
     description: Name of the Instance.
-  k8s_master_1_disk_size:
+  k8s_master_1_volume_1_size:
     type: number
     default: 100
     description: Private IP of the Instance.
-  k8s_master_volume_1_name:
+  k8s_master_1_volume_1_name:
     type: string
     default: k8s-master
     description: Name of the Volume.
@@ -57,8 +57,8 @@ resources:
   volume_1:
     type: OS::Cinder::Volume
     properties:
-      name: { get_param: k8s_master_volume_1_name }
-      size: { get_param: k8s_master_1_disk_size }
+      name: { get_param: k8s_master_1_volume_1_name }
+      size: { get_param: k8s_master_1_volume_1_size }
 
   volume_attachment:
     type: OS::Cinder::VolumeAttachment
