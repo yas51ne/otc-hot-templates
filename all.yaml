@@ -53,15 +53,19 @@ resources:
       
   k8sMaster-1:
     type: OS::Nova::Server::K8sMaster
-    
+    depends_on: private_subnet
+
   K8sSlave-1:
     type: OS::Nova::Server::K8sSlave
+    depends_on: private_subnet
     
   MongoDB-1:
     type: OS::Nova::Server::MongoDB
+    depends_on: private_subnet
     
   GlusterFS-1:
     type: OS::Nova::Server::GlusterFS
+    depends_on: private_subnet
 
 outputs:
   k8s_master_ip:
