@@ -66,13 +66,13 @@ resources:
 outputs:
   k8s_master_ip:
     description: The IP address of the deployed instance
-    value: { get_attr: [k8sMaster-1, first_address] }
+    value: { get_attr: [ k8sMaster-1, first_address ] }
   k8s_slave_ip:
     description: The IP address of the deployed instance
-    value: { get_attr: [K8sSlave-1, first_address] }
+    value: { get_attr: [ K8sSlave-1, first_address ] }
   mongodb_ip:
     description: The IP address of the deployed instance
-    value: { get_attr: [MongoDB-1, first_address] }
+    value: { get_attr: [ MongoDB-1, first_address ] }
   glusterfs_ip:
     description: The IP address of the deployed instance
-    value: { get_attr: [GlusterFS-1, first_address] }
+    value: { get_attr: [ GlusterFS-1, first_address ] }
