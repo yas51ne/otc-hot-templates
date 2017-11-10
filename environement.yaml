@@ -4,6 +4,7 @@ resource_registry:
     "OS::Nova::Server::GlusterFS": "file:///root/otc-hot-templates/glusterfs.yaml"
     "OS::Nova::Server::K8sSlave": "file:///root/otc-hot-templates/k8s-slave.yaml"
     "OS::Nova::Server::MongoDB": "file:///root/otc-hot-templates/mongodb.yaml"
+
 parameter_defaults:
   key_name: KeyPair-test-YM
   image_name: Standard_CentOS_7.3_latest
@@ -14,3 +15,7 @@ parameter_defaults:
   private_net_gateway: 172.16.0.1
   private_net_pool_start: 172.16.0.10
   private_net_pool_end: 172.16.0.200
+  admin_password: e54@Cw5!
+  k8s_master_1_name: master-1
+  k8s_master_1_volume_1_size: 50
+  k8s_master_1_volume_1_name: vol-master-1
