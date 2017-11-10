@@ -10,7 +10,7 @@ parameter_defaults:
   image_name: Standard_CentOS_7.3_latest
   flavor_name: s1.xlarge
   public_net: admin_external_net
-  private_net_name: test-subnet
+  private_net_name: vendredi-subnet
   private_net_cidr: 172.16.0.0/16
   private_net_gateway: 172.16.0.1
   private_net_pool_start: 172.16.0.10
