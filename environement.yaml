@@ -41,7 +41,7 @@ parameter_defaults:
   glusterfs_flavor_name: s1.xlarge
   
 #Etcd parameters
-  etcd_name: glusterfs
+  etcd_name: etcd
   etcd_volume_1_size: 50
   etcd_volume_1_name: vol-etcd
   etcd_flavor_name: s1.xlarge
