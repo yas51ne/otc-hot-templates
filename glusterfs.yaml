@@ -30,11 +30,11 @@ parameters:
     type: string
     default: k8s-slave
     description: Name of the Instance.
-  glusterfs_volume_1_size:
+  glusterfs_volume_size:
     type: number
     default: 100
     description: Private IP of the Instance.
-  glusterfs_volume_1_name:
+  glusterfs_volume_name:
     type: string
     default: k8s-slave
     description: Name of the Volume.
@@ -51,16 +51,16 @@ resources:
       networks:
       - network: { get_param: private_net_name }
 
-  glusterfs_volume_1:
+  glusterfs_volume:
     type: OS::Cinder::Volume
     properties:
-      name: { get_param: glusterfs_volume_1_name }
-      size: { get_param: glusterfs_volume_1_size }
+      name: { get_param: glusterfs_volume_name }
+      size: { get_param: glusterfs_volume_size }
 
   glusterfs_volume_attachment:
     type: OS::Cinder::VolumeAttachment
     properties:
-      volume_id: { get_resource: glusterfs_volume_1 }
+      volume_id: { get_resource: glusterfs_volume }
       instance_uuid: { get_resource: glusterfs_instance }
 
 outputs:
