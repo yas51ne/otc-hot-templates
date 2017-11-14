@@ -27,17 +27,23 @@ parameter_defaults:
   k8s_slave_volume_1_name: vol-k8ss
   k8s_slave_flavor_name: s1.xlarge
   
- #K8S Mongodb parameters
+#Mongodb parameters
   mongodb_name: mongodb
   mongodb_volume_1_size: 50
-  mongodb_volume_1_name: vol-mdb
+  mongodb_volume_1_name: vol-mgdb
   mongodb_flavor_name: s1.xlarge
   
- #K8S Mongodb parameters
+#Glusterfs parameters
   glusterfs_name: glusterfs
   glusterfs_volume_1_size: 50
-  glusterfs_volume_1_name: vol-gfs
+  glusterfs_volume_1_name: vol-glfs
   glusterfs_flavor_name: s1.xlarge
+  
+#Etcd parameters
+  etcd_name: glusterfs
+  etcd_volume_1_size: 50
+  etcd_volume_1_name: vol-etcd
+  etcd_flavor_name: s1.xlarge
   
 #Common parameters
   key_name: KeyPair-test-YM
