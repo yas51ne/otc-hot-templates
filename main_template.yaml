@@ -56,9 +56,9 @@ resources:
     depends_on: private_subnet
     properties:
       count: 3
+      name: master_%index%
       resource_def:
         type: OS::Nova::Server::K8sMaster
-        name : master_%index%
 
   scaleup_group_K8sSlave:
     type: OS::Heat::AutoScalingGroup
