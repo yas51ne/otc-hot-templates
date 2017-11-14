@@ -4,6 +4,7 @@ resource_registry:
     "OS::Nova::Server::GlusterFS": "file:///root/otc-hot-templates/glusterfs.yaml"
     "OS::Nova::Server::K8sSlave": "file:///root/otc-hot-templates/k8s-slave.yaml"
     "OS::Nova::Server::MongoDB": "file:///root/otc-hot-templates/mongodb.yaml"
+    "OS::Nova::Server::Etcd": "file:///root/otc-hot-templates/etcd.yaml"
 
 parameter_defaults:
 
