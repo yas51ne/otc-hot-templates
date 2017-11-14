@@ -83,7 +83,7 @@ resources:
     depends_on: private_subnet
     properties:
       cooldown: 60
-      desired_capacity: 3
+      desired_capacity: 5
       max_size: 15
       min_size: 3
       resource:
