@@ -6,16 +6,40 @@ resource_registry:
     "OS::Nova::Server::MongoDB": "file:///root/otc-hot-templates/mongodb.yaml"
 
 parameter_defaults:
-  key_name: KeyPair-test-YM
-  image_name: Standard_CentOS_7.3_latest
-  flavor_name: s1.xlarge
+
+#Network parameters
   public_net: admin_external_net
   private_net_name: vendredi-subnet
   private_net_cidr: 172.16.0.0/16
   private_net_gateway: 172.16.0.1
   private_net_pool_start: 172.16.0.10
   private_net_pool_end: 172.16.0.200
+
+#K8S Masters parameters
+  k8s_master_name: k8s-master
+  k8s_master_volume_1_size: 50
+  k8s_master_volume_1_name: vol-k8sm
+  k8s_master_flavor_name: s1.xlarge
+  
+#K8S Slaves parameters
+  k8s_slave_name: k8s-slaves
+  k8s_slave_volume_1_size: 50
+  k8s_slave_volume_1_name: vol-k8ss
+  k8s_slave_flavor_name: s1.xlarge
+  
+ #K8S Mongodb parameters
+  mongodb_name: mongodb
+  mongodb_volume_1_size: 50
+  mongodb_volume_1_name: vol-mdb
+  mongodb_flavor_name: s1.xlarge
+  
+ #K8S Mongodb parameters
+  glusterfs_name: glusterfs
+  glusterfs_volume_1_size: 50
+  glusterfs_volume_1_name: vol-gfs
+  glusterfs_flavor_name: s1.xlarge
+  
+#Common parameters
+  key_name: KeyPair-test-YM
+  image_name: Standard_CentOS_7.3_latest
   admin_password: e54@Cw5!
-  k8s_master_1_name: master-1
-  k8s_master_1_volume_1_size: 50
-  k8s_master_1_volume_1_name: vol-master-1
