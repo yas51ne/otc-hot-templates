@@ -24,21 +24,36 @@ parameters:
     description: End of private network IP address allocation pool
   k8s_master_name:
     type: string
-    default: k8s-master_%index%
+    default: k8s-master-00%index%
     description: Name of the K8S Master node.
   mongodb_name:
     type: string
-    default: mongodb_%index%
+    default: mongodb-00%index%
     description: Name of the mongodb node.
   glusterfs_name:
     type: string
-    default: glusterfs_%index%
+    default: glusterfs-00%index%
     description: Name of the glusterfs node.
   etcd_name:
     type: string
-    default: etcd_%index%
+    default: etcd-00%index%
     description: Name of the etcd node.
-    
+  k8s_master_volume_name:
+    type: string
+    default: vol-k8sm-00%index%
+    description: Name of the K8S Master Volume.
+  mongodb_volume_name:
+    type: string
+    default: vol-mgdb-00%index%
+    description: Name of the Mongodb Volume.
+  glusterfs_volume_name:
+    type: string
+    default: vol-glfs-00%index%
+    description: Name of the Glusterfs Volume.
+  etcd_volume_name:
+    type: string
+    default: vol-etcd-00%index%
+    description: Name of the Etcd Volume.
     
 resources:
   private_net:
@@ -77,6 +92,7 @@ resources:
         type: OS::Nova::Server::K8sMaster
         properties:
           k8s_master_name: { get_param: k8s_master_name }
+          k8s_master_volume_name: { get_param: k8s_master_volume_name }
 
   scaleup_group_K8sSlave:
     type: OS::Heat::AutoScalingGroup
@@ -98,6 +114,7 @@ resources:
         type: OS::Nova::Server::MongoDB
         properties:
           mongodb_name: { get_param: mongodb_name }
+          mongodb_volume_name: { get_param: mongodb_volume_name }
 
   resource_group_GlusterFS:
     type: OS::Heat::ResourceGroup
@@ -108,6 +125,7 @@ resources:
         type: OS::Nova::Server::GlusterFS
         properties:
           glusterfs_name: { get_param: glusterfs_name }
+          glusterfs_volume_name: { get_param: glusterfs_volume_name }
           
   resource_group_Etcd:
     type: OS::Heat::ResourceGroup
@@ -118,3 +136,5 @@ resources:
         type: OS::Nova::Server::Etcd
         properties:
           etcd_name: { get_param: etcd_name }
+          etcd_volume_name: { get_param: etcd_volume_name }
+          
