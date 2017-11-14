@@ -8,17 +8,17 @@ parameters:
     label: Key Name
     default: KeyPair-test-YM
     description: Name of key-pair to be used for compute instance
-  image_id:
+  image_name:
     type: string
     label: Image ID
     default: Standard_CentOS_7.3_latest
     description: Image to be used for compute instance
-  instance_type:
+  glusterfs_flavor_name:
     type: string
     label: Instance Type
     default: s1.xlarge
     description: Type of instance (flavor) to be used
-  NetID:
+  private_net_name:
     type: string
     default: 02178dcd-acc0-4c28-b21d-70bd963c4db0
     description: Network ID to use for the instance.
@@ -26,44 +26,44 @@ parameters:
     type: string
     default: e54@Cw5!
     description: password of the root.
-  instance_name:
+  glusterfs_name:
     type: string
-    default: glusterfs
+    default: k8s-slave
     description: Name of the Instance.
-  disk_size:
+  glusterfs_volume_1_size:
     type: number
     default: 100
     description: Private IP of the Instance.
+  glusterfs_volume_1_name:
+    type: string
+    default: k8s-slave
+    description: Name of the Volume.
 
 resources:
-  my_instance:
+  glusterfs_instance:
     type: OS::Nova::Server
     properties:
-      name: { get_param: instance_name }
+      name: { get_param: glusterfs_name }
       key_name: { get_param: key_name }
       admin_pass: { get_param: admin_password }
-      image: { get_param: image_id }
-      flavor: { get_param: instance_type }
+      image: { get_param: image_name }
+      flavor: { get_param: glusterfs_flavor_name }
       networks:
-      - network: { get_param: NetID }
-#      user_data:
-#        str_replace:
-#          template: {get_file: default_config.sh}
+      - network: { get_param: private_net_name }
 
-  volume:
+  glusterfs_volume_1:
     type: OS::Cinder::Volume
     properties:
-      name: glusterfs
-      size: { get_param: disk_size }
+      name: { get_param: glusterfs_volume_1_name }
+      size: { get_param: glusterfs_volume_1_size }
 
-  volume_attachment:
+  glusterfs_volume_attachment:
     type: OS::Cinder::VolumeAttachment
     properties:
-      volume_id: { get_resource: volume }
-      instance_uuid: { get_resource: my_instance }
-
+      volume_id: { get_resource: glusterfs_volume_1 }
+      instance_uuid: { get_resource: glusterfs_instance }
 
 outputs:
-  instance_ip:
+  k8s_instance_ip:
     description: The IP address of the deployed instance
-    value: { get_attr: [my_instance, first_address] }
+    value: { get_attr: [glusterfs_instance, first_address] }
