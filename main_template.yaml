@@ -93,7 +93,7 @@ resources:
 
   resource_group_K8sMaster:
     type: OS::Heat::ResourceGroup
-    depends_on: private_subnet
+    depends_on: router_interface
     properties:
       count: 3
       resource_def:
@@ -104,7 +104,7 @@ resources:
 
   scaleup_group_K8sSlave:
     type: OS::Heat::AutoScalingGroup
-    depends_on: private_subnet
+    depends_on: router_interface
     properties:
       cooldown: 60
       desired_capacity: 5
@@ -115,7 +115,7 @@ resources:
 
   resource_group_MongoDB:
     type: OS::Heat::ResourceGroup
-    depends_on: private_subnet
+    depends_on: router_interface
     properties:
       count: 3
       resource_def:
@@ -126,7 +126,7 @@ resources:
 
   resource_group_GlusterFS:
     type: OS::Heat::ResourceGroup
-    depends_on: private_subnet
+    depends_on: router_interface
     properties:
       count: 2
       resource_def:
@@ -137,7 +137,7 @@ resources:
           
   resource_group_Etcd:
     type: OS::Heat::ResourceGroup
-    depends_on: private_subnet
+    depends_on: router_interface
     properties:
       count: 3
       resource_def:
