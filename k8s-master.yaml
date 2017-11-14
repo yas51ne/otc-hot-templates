@@ -13,7 +13,7 @@ parameters:
     label: Image ID
     default: Standard_CentOS_7.3_latest
     description: Image to be used for compute instance
-  flavor_name:
+  k8s_master_flavor_name:
     type: string
     label: Instance Type
     default: s1.xlarge
@@ -26,49 +26,45 @@ parameters:
     type: string
     default: e54@Cw5!
     description: password of the root.
-  k8s_master_1_name:
+  k8s_master_name:
     type: string
     default: k8s-master
     description: Name of the Instance.
-  k8s_master_1_volume_1_size:
+  k8s_master_volume_1_size:
     type: number
     default: 100
     description: Private IP of the Instance.
-  k8s_master_1_volume_1_name:
+  k8s_master_volume_1_name:
     type: string
     default: k8s-master
     description: Name of the Volume.
 
 resources:
-  my_instance:
+  k8s_master_instance:
     type: OS::Nova::Server
     properties:
-      name: { get_param: k8s_master_1_name }
+      name: { get_param: k8s_master_name }
       key_name: { get_param: key_name }
       admin_pass: { get_param: admin_password }
       image: { get_param: image_name }
-      flavor: { get_param: flavor_name }
+      flavor: { get_param: k8s_master_flavor_name }
       networks:
       - network: { get_param: private_net_name }
-#      user_data:
-#        str_replace:
-#          template: {get_file: k8s-master_boot.sh}
 
-  volume_1:
+  k8s_master_volume_1:
     type: OS::Cinder::Volume
     properties:
-      name: { get_param: k8s_master_1_volume_1_name }
-      size: { get_param: k8s_master_1_volume_1_size }
+      name: { get_param: k8s_master_volume_1_name }
+      size: { get_param: k8s_master_volume_1_size }
 
-  volume_attachment:
+  k8s_master_volume_attachment:
     type: OS::Cinder::VolumeAttachment
     properties:
-      volume_id: { get_resource: volume_1 }
-      instance_uuid: { get_resource: my_instance }
-
+      volume_id: { get_resource: k8s_master_volume_1 }
+      instance_uuid: { get_resource: k8s_master_instance }
 
 outputs:
-  instance_ip:
+  k8s_instance_ip:
     description: The IP address of the deployed instance
-    value: { get_attr: [my_instance, first_address] }
+    value: { get_attr: [k8s_master_instance, first_address] }
 
