@@ -23,7 +23,7 @@ parameter_defaults:
   k8s_master_flavor_name: c2.large
   
 #K8S Slaves parameters
-  k8s_slave_name: cws-prod-k8ss-00%index%
+  k8s_slave_name: cws-prod-k8ss
   k8s_slave_volume_size: 100
   k8s_slave_volume_name: cws-prod-vol-k8ss
   k8s_slave_flavor_name: c2.2xlarge
