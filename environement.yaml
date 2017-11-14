@@ -22,7 +22,7 @@ parameter_defaults:
   k8s_master_flavor_name: s1.xlarge
   
 #K8S Slaves parameters
-  k8s_slave_name: k8s-slaves
+  k8s_slave_name: k8s-slave
   k8s_slave_volume_1_size: 50
   k8s_slave_volume_1_name: vol-k8ss
   k8s_slave_flavor_name: s1.xlarge
