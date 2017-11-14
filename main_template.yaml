@@ -58,6 +58,7 @@ resources:
       count: 3
       resource_def:
         type: OS::Nova::Server::K8sMaster
+        name : master_%index%
 
   scaleup_group_K8sSlave:
     type: OS::Heat::AutoScalingGroup
@@ -71,34 +72,25 @@ resources:
         type: OS::Nova::Server::K8sSlave
 
   scaleup_group_MongoDB:
-    type: OS::Heat::AutoScalingGroup
+    type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
-      cooldown: 60
-      desired_capacity: 2
-      max_size: 3
-      min_size: 1
-      resource:
+      count: 3
+      resource_def:
         type: OS::Nova::Server::MongoDB
 
   scaleup_group_GlusterFS:
-    type: OS::Heat::AutoScalingGroup
+    type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
-      cooldown: 60
-      desired_capacity: 2
-      max_size: 4
-      min_size: 2
-      resource:
+      count: 2
+      resource_def:
         type: OS::Nova::Server::GlusterFS
 
   scaleup_group_Etcd:
-    type: OS::Heat::AutoScalingGroup
+    type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
-      cooldown: 60
-      desired_capacity: 3
-      max_size: 6
-      min_size: 3
-      resource:
+      count: 3
+      resource_def:
         type: OS::Nova::Server::Etcd
