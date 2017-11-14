@@ -52,14 +52,11 @@ resources:
       subnet_id: { get_resource: private_subnet }
 
   scaleup_group_K8sMaster:
-    type: OS::Heat::AutoScalingGroup
+    type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
-      cooldown: 60
-      desired_capacity: 3
-      max_size: 6
-      min_size: 3
-      resource:
+      count: 3
+      resource_def:
         type: OS::Nova::Server::K8sMaster
 
   scaleup_group_K8sSlave:
