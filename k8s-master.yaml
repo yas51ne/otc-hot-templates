@@ -30,11 +30,11 @@ parameters:
     type: string
     default: k8s-master
     description: Name of the Instance.
-  k8s_master_volume_1_size:
+  k8s_master_volume_size:
     type: number
     default: 100
     description: Private IP of the Instance.
-  k8s_master_volume_1_name:
+  k8s_master_volume_name:
     type: string
     default: k8s-master
     description: Name of the Volume.
@@ -51,16 +51,16 @@ resources:
       networks:
       - network: { get_param: private_net_name }
 
-  k8s_master_volume_1:
+  k8s_master_volume:
     type: OS::Cinder::Volume
     properties:
-      name: { get_param: k8s_master_volume_1_name }
-      size: { get_param: k8s_master_volume_1_size }
+      name: { get_param: k8s_master_volume_name }
+      size: { get_param: k8s_master_volume_size }
 
   k8s_master_volume_attachment:
     type: OS::Cinder::VolumeAttachment
     properties:
-      volume_id: { get_resource: k8s_master_volume_1 }
+      volume_id: { get_resource: k8s_master_volume }
       instance_uuid: { get_resource: k8s_master_instance }
 
 outputs:
