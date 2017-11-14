@@ -1,12 +1,15 @@
 heat_template_version: 2015-04-30
 
-description: Simple template to deploy a all instances
+description: Simple template to deploy the cws environement v1.0
 
 parameters:
   public_net:
     type: string
     description: >
-      ID or name of public network for which floating IP addresses will be allocated
+      ID or name of public network for which Elastic IP addresses will be allocated
+  vpc_name:
+    type: string
+    description: Name of the VPC
   private_net_name:
     type: string
     description: Name of private network to be created
@@ -74,6 +77,7 @@ resources:
   router:
     type: OS::Neutron::Router
     properties:
+      vpc_name: { get_param: vpc_name }
       external_gateway_info:
         network: { get_param: public_net }
 
