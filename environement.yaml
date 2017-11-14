@@ -11,7 +11,8 @@ parameter_defaults:
 #Network parameters
   public_net: admin_external_net
   vpc_name: cws-prod-vpc
-  private_net_name: cws-prod-data-subnet
+  private_net_name: cws-prod-data-net
+  private_subnet_name: cws-prod-data-subnet
   private_net_cidr: 172.16.0.0/16
   private_net_gateway: 172.16.0.1
   private_net_pool_start: 172.16.0.10
