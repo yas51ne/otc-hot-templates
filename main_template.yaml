@@ -22,7 +22,24 @@ parameters:
   private_net_pool_end:
     type: string
     description: End of private network IP address allocation pool
-
+  k8s_master_name:
+    type: string
+    default: k8s-master_%index%
+    description: Name of the K8S Master node.
+  mongodb_name:
+    type: string
+    default: mongodb_%index%
+    description: Name of the mongodb node.
+  glusterfs_name:
+    type: string
+    default: glusterfs_%index%
+    description: Name of the glusterfs node.
+  etcd_name:
+    type: string
+    default: etcd_%index%
+    description: Name of the etcd node.
+    
+    
 resources:
   private_net:
     type: OS::Neutron::Net
@@ -56,9 +73,10 @@ resources:
     depends_on: private_subnet
     properties:
       count: 3
-      name: master_%index%
       resource_def:
         type: OS::Nova::Server::K8sMaster
+        properties:
+          k8s_master_name: { get_param: k8s_master_name }
 
   scaleup_group_K8sSlave:
     type: OS::Heat::AutoScalingGroup
@@ -78,6 +96,8 @@ resources:
       count: 3
       resource_def:
         type: OS::Nova::Server::MongoDB
+        properties:
+          mongodb_name: { get_param: mongodb_name }
 
   scaleup_group_GlusterFS:
     type: OS::Heat::ResourceGroup
@@ -86,7 +106,9 @@ resources:
       count: 2
       resource_def:
         type: OS::Nova::Server::GlusterFS
-
+        properties:
+          glusterfs_name: { get_param: glusterfs_name }
+          
   scaleup_group_Etcd:
     type: OS::Heat::ResourceGroup
     depends_on: private_subnet
@@ -94,3 +116,5 @@ resources:
       count: 3
       resource_def:
         type: OS::Nova::Server::Etcd
+        properties:
+          etcd_name: { get_param: etcd_name }
