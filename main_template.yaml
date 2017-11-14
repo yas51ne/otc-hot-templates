@@ -81,7 +81,7 @@ resources:
   router:
     type: OS::Neutron::Router
     properties:
-      vpc_name: { get_param: vpc_name }
+      name: { get_param: vpc_name }
       external_gateway_info:
         network: { get_param: public_net }
 
