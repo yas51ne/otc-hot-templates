@@ -13,6 +13,9 @@ parameters:
   private_net_name:
     type: string
     description: Name of private network to be created
+  private_subnet_name:
+    type: string
+    description: Name of private subnet to be created
   private_net_cidr:
     type: string
     description: Private network address (CIDR notation)
@@ -67,6 +70,7 @@ resources:
   private_subnet:
     type: OS::Neutron::Subnet
     properties:
+      name: { get_param: private_subnet_name }
       network_id: { get_resource: private_net }
       cidr: { get_param: private_net_cidr }
       gateway_ip: { get_param: private_net_gateway }
