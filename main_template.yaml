@@ -68,7 +68,7 @@ resources:
       router_id: { get_resource: router }
       subnet_id: { get_resource: private_subnet }
 
-  scaleup_group_K8sMaster:
+  resource_group_K8sMaster:
     type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
@@ -89,7 +89,7 @@ resources:
       resource:
         type: OS::Nova::Server::K8sSlave
 
-  scaleup_group_MongoDB:
+  resource_group_MongoDB:
     type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
@@ -99,7 +99,7 @@ resources:
         properties:
           mongodb_name: { get_param: mongodb_name }
 
-  scaleup_group_GlusterFS:
+  resource_group_GlusterFS:
     type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
@@ -109,7 +109,7 @@ resources:
         properties:
           glusterfs_name: { get_param: glusterfs_name }
           
-  scaleup_group_Etcd:
+  resource_group_Etcd:
     type: OS::Heat::ResourceGroup
     depends_on: private_subnet
     properties:
