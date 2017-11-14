@@ -94,3 +94,14 @@ resources:
       min_size: 2
       resource:
         type: OS::Nova::Server::GlusterFS
+
+  scaleup_group_Etcd:
+    type: OS::Heat::AutoScalingGroup
+    depends_on: private_subnet
+    properties:
+      cooldown: 60
+      desired_capacity: 3
+      max_size: 6
+      min_size: 3
+      resource:
+        type: OS::Nova::Server::Etcd
