@@ -1,0 +1,69 @@
+heat_template_version: 2015-04-30
+
+description: Simple template to deploy a single etcd instance
+
+parameters:
+  key_name:
+    type: string
+    label: Key Name
+    default: KeyPair-test-YM
+    description: Name of key-pair to be used for compute instance
+  image_name:
+    type: string
+    label: Image ID
+    default: Standard_CentOS_7.3_latest
+    description: Image to be used for compute instance
+  etcd_flavor_name:
+    type: string
+    label: Instance Type
+    default: s1.xlarge
+    description: Type of instance (flavor) to be used
+  private_net_name:
+    type: string
+    default: 02178dcd-acc0-4c28-b21d-70bd963c4db0
+    description: Network ID to use for the instance.
+  admin_password:
+    type: string
+    default: e54@Cw5!
+    description: password of the root.
+  etcd_name:
+    type: string
+    default: k8s-slave
+    description: Name of the Instance.
+  etcd_volume_1_size:
+    type: number
+    default: 100
+    description: Private IP of the Instance.
+  etcd_volume_1_name:
+    type: string
+    default: k8s-slave
+    description: Name of the Volume.
+
+resources:
+  etcd_instance:
+    type: OS::Nova::Server
+    properties:
+      name: { get_param: etcd_name }
+      key_name: { get_param: key_name }
+      admin_pass: { get_param: admin_password }
+      image: { get_param: image_name }
+      flavor: { get_param: etcd_flavor_name }
+      networks:
+      - network: { get_param: private_net_name }
+
+  etcd_volume_1:
+    type: OS::Cinder::Volume
+    properties:
+      name: { get_param: etcd_volume_1_name }
+      size: { get_param: etcd_volume_1_size }
+
+  etcd_volume_attachment:
+    type: OS::Cinder::VolumeAttachment
+    properties:
+      volume_id: { get_resource: etcd_volume_1 }
+      instance_uuid: { get_resource: etcd_instance }
+
+outputs:
+  k8s_instance_ip:
+    description: The IP address of the deployed instance
+value: { get_attr: [etcd_instance, first_address] }
