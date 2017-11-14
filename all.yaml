@@ -50,33 +50,47 @@ resources:
     properties:
       router_id: { get_resource: router }
       subnet_id: { get_resource: private_subnet }
-      
-  k8sMaster-1:
-    type: OS::Nova::Server::K8sMaster
-    depends_on: private_subnet
 
-  K8sSlave-1:
-    type: OS::Nova::Server::K8sSlave
+  scaleup_group_K8sMaster:
+    type: OS::Heat::AutoScalingGroup
     depends_on: private_subnet
-    
-  MongoDB-1:
-    type: OS::Nova::Server::MongoDB
-    depends_on: private_subnet
-    
-  GlusterFS-1:
-    type: OS::Nova::Server::GlusterFS
-    depends_on: private_subnet
+    properties:
+      cooldown: 60
+      desired_capacity: 3
+      max_size: 6
+      min_size: 3
+      resource:
+        type: OS::Nova::Server::K8sMaster
 
-outputs:
-  k8s_master_ip:
-    description: The IP address of the deployed instance
-    value: { get_attr: [ k8sMaster-1, first_address ] }
-  k8s_slave_ip:
-    description: The IP address of the deployed instance
-    value: { get_attr: [ K8sSlave-1, first_address ] }
-  mongodb_ip:
-    description: The IP address of the deployed instance
-    value: { get_attr: [ MongoDB-1, first_address ] }
-  glusterfs_ip:
-    description: The IP address of the deployed instance
-    value: { get_attr: [ GlusterFS-1, first_address ] }
+  scaleup_group_K8sSlave:
+    type: OS::Heat::AutoScalingGroup
+    depends_on: private_subnet
+    properties:
+      cooldown: 60
+      desired_capacity: 3
+      max_size: 15
+      min_size: 3
+      resource:
+        type: OS::Nova::Server::K8sSlave
+
+  scaleup_group_MongoDB:
+    type: OS::Heat::AutoScalingGroup
+    depends_on: private_subnet
+    properties:
+      cooldown: 60
+      desired_capacity: 2
+      max_size: 3
+      min_size: 1
+      resource:
+        type: OS::Nova::Server::MongoDB
+
+  scaleup_group_GlusterFS:
+    type: OS::Heat::AutoScalingGroup
+    depends_on: private_subnet
+    properties:
+      cooldown: 60
+      desired_capacity: 2
+      max_size: 4
+      min_size: 2
+      resource:
+        type: OS::Nova::Server::GlusterFS
