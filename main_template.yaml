@@ -15,6 +15,10 @@ parameters:
     type: string
     default: cws-vpc
     description: Name of the VPC
+  dns_domain_name:
+    type: string
+    default: cws.environement.
+    description: Name of the DNS Domain
   private_net_name:
     type: string
     default: cws-network
@@ -89,6 +93,7 @@ resources:
     type: OS::Neutron::Net
     properties:
       name: { get_param: private_net_name }
+      dns_domain: { get_param: dns_domain_name }
 
   private_subnet:
     type: OS::Neutron::Subnet
