@@ -199,3 +199,20 @@ resources:
           etcd_name: { get_param: etcd_name }
           etcd_volume_name: { get_param: etcd_volume_name }
           common_secgroup: { get_resource: common_secgroup }
+
+outputs:
+  K8sMaster_nodes_ips:
+    description: IP adresses of the Kubernetes master nodes
+    value: { get_attr: [ resource_group_K8sMaster, outputs, server_ip ] }
+  K8sSlave_nodes_ips:
+    description: Ip adresses of the Kubernetes slave nodes
+    value: { get_attr: [ autoscaled_group_K8sSlave, outputs ] }
+  GlusterFS_nodes_ips:
+    description: Ip adresses of the GlusterFS nodes
+    value: { get_attr: [ resource_group_GlusterFS, outputs, server_ip ] }
+  MongoDB_nodes_ips:
+    description: Ip adresses of the MongoDB nodes
+    value: { get_attr: [ resource_group_MongoDB, outputs, server_ip ] }
+  Etcd_nodes_ips:
+    description: Ip adresses of the Etcd nodes
+    value: { get_attr: [ resource_group_Etcd, outputs, server_ip ] }
