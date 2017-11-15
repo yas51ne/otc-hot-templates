@@ -38,7 +38,15 @@ parameters:
     type: string
     default: k8s-slave
     description: Name of the Volume.
-
+  common_secgroup:
+    type: string
+    default: common-secgroup
+    description: Name of the Common Security Group.
+  k8ss_secgroup_name: 
+    type: string
+    default: k8ss-secgroup
+    description: Name of the K8S Slaves Security Group.
+    
 resources:
   k8s_slave_instance:
     type: OS::Nova::Server
@@ -48,6 +56,9 @@ resources:
       admin_pass: { get_param: admin_password }
       image: { get_param: image_name }
       flavor: { get_param: k8s_slave_flavor_name }
+      security_groups:
+      - { get_param: common_secgroup }
+      - { get_param: k8ss_secgroup_name }
       networks:
       - network: { get_param: private_net_name }
 
