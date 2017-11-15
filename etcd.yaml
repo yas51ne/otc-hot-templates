@@ -41,7 +41,7 @@ parameters:
   common_secgroup:
     type: string
     default: common-secgroup
-    description: Name of the Security Group.
+    description: Name of the Common Security Group.
     
 resources:
   etcd_instance:
