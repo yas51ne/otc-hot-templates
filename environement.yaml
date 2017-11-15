@@ -18,7 +18,7 @@ parameter_defaults:
   private_net_gateway: 172.16.0.1
   private_net_pool_start: 172.16.0.100
   private_net_pool_end: 172.16.0.200
-  dns_servers: '100.125.4.25','8.8.8.8'
+  dns_servers: ['100.125.4.25','8.8.8.8']
 
 #K8S Masters parameters
   k8s_master_name: cws-prod-k8sm-00%index%
