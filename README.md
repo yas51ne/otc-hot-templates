@@ -54,4 +54,4 @@ otc-hot-templates]# openstack stack output show --all cws-production
 
 ## Authors
 
-* **Yassine MAACHI** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Yassine MAACHI** - *Initial work* - [CWS-HOT](https://github.com/yas51ne/otc-hot-templates)
