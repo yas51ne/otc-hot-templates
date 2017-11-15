@@ -71,7 +71,7 @@ resources:
 
 outputs:
   k8sm_instance_info:
-    description: The hosname and the IP address of the deployed instance
+    description: The hostname and the IP address of the deployed instance
     value: 
-    - { get_attr: [k8s_master_instance, name] }
-    - { get_attr: [k8s_master_instance, first_address] }
+    - { get_attr: [ k8s_master_instance, name ] }
+    - { get_attr: [ k8s_master_instance, first_address ] }
