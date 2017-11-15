@@ -206,7 +206,7 @@ outputs:
     value: { get_attr: [ resource_group_K8sMaster, k8sm_instance_info ] }
   K8sSlave_nodes_info:
     description: Hostname and Ip adresses of the Kubernetes slave nodes
-    value: { get_attr: [ autoscaled_group_K8sSlave, k8ss_instance_info ] }
+    value: { get_attr: [ autoscaled_group_K8sSlave, outputs_list, k8ss_instance_info ] }
   Autoscaled_group_K8sSlave_size:
     description: This is the current size of the auto scaling group.
     value: { get_attr: [ autoscaled_group_K8sSlave, current_size ] }
