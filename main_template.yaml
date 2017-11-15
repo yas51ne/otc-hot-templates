@@ -9,7 +9,7 @@ parameters:
       ID or name of public network for which Elastic IP addresses will be allocated
   dns_servers:
     type: comma_delimited_list
-    default: '100.125.4.25','8.8.8.8'
+    default: ['100.125.4.25','8.8.8.8']
     description: Comma separated list of DNS nameservers for the private network.
   vpc_name:
     type: string
@@ -93,7 +93,6 @@ resources:
     type: OS::Neutron::Net
     properties:
       name: { get_param: private_net_name }
-      dns_domain: { get_param: dns_domain_name }
 
   private_subnet:
     type: OS::Neutron::Subnet
