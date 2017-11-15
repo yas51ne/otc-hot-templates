@@ -91,6 +91,41 @@ resources:
       router_id: { get_resource: router }
       subnet_id: { get_resource: private_subnet }
 
+  common_secgroup:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      name: cws-common-secgrp
+      description: Ping
+      rules:
+      - protocol: icmp
+        remote_ip_prefix: 0.0.0.0/0
+
+  k8ss_secgroup:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      name: cws-k8ss-secgrp
+      description: HTTPS and HTTP
+      rules:
+        - protocol: tcp
+          remote_ip_prefix: 0.0.0.0/0
+          port_range_min: 80
+          port_range_max: 80
+        - protocol: tcp
+          remote_ip_prefix: 0.0.0.0/0
+          port_range_min: 443
+          port_range_max: 443
+
+  jumpbox_secgroup:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      name: cws-jmbx-secgrp
+      description: SSH
+      rules:
+        - protocol: tcp
+          remote_ip_prefix: 0.0.0.0/0
+          port_range_min: 22
+          port_range_max: 22
+          
   resource_group_K8sMaster:
     type: OS::Heat::ResourceGroup
     depends_on: router_interface
@@ -101,7 +136,8 @@ resources:
         properties:
           k8s_master_name: { get_param: k8s_master_name }
           k8s_master_volume_name: { get_param: k8s_master_volume_name }
-
+          common_secgroup: { get_resource: common_secgroup }
+          
   scaleup_group_K8sSlave:
     type: OS::Heat::AutoScalingGroup
     depends_on: router_interface
@@ -112,6 +148,9 @@ resources:
       min_size: 3
       resource:
         type: OS::Nova::Server::K8sSlave
+        properties:
+          common_secgroup: { get_resource: common_secgroup }
+          k8ss_secgroup: { get_resource: k8ss_secgroup }
 
   resource_group_MongoDB:
     type: OS::Heat::ResourceGroup
@@ -123,7 +162,8 @@ resources:
         properties:
           mongodb_name: { get_param: mongodb_name }
           mongodb_volume_name: { get_param: mongodb_volume_name }
-
+          common_secgroup: { get_resource: common_secgroup }
+          
   resource_group_GlusterFS:
     type: OS::Heat::ResourceGroup
     depends_on: router_interface
@@ -134,6 +174,7 @@ resources:
         properties:
           glusterfs_name: { get_param: glusterfs_name }
           glusterfs_volume_name: { get_param: glusterfs_volume_name }
+          common_secgroup: { get_resource: common_secgroup }
           
   resource_group_Etcd:
     type: OS::Heat::ResourceGroup
@@ -145,4 +186,4 @@ resources:
         properties:
           etcd_name: { get_param: etcd_name }
           etcd_volume_name: { get_param: etcd_volume_name }
-          
+          common_secgroup: { get_resource: common_secgroup }
