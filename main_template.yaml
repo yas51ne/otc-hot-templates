@@ -102,6 +102,7 @@ resources:
       cidr: { get_param: private_net_cidr }
       gateway_ip: { get_param: private_net_gateway }
       dns_nameservers: { get_param: dns_servers }
+      host_routes: ['0.0.0.0/0','172.16.0.10']
       allocation_pools:
         - start: { get_param: private_net_pool_start }
           end: { get_param: private_net_pool_end }
