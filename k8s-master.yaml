@@ -70,7 +70,8 @@ resources:
       instance_uuid: { get_resource: k8s_master_instance }
 
 outputs:
-  k8sm_instance_ip:
+  k8sm_instance_info:
     description: The IP address of the deployed instance
-    value: { get_attr: [k8s_master_instance, first_address] }
-
+    value: 
+    - { get_attr: [k8s_master_instance, name] }
+    - { get_attr: [k8s_master_instance, first_address] }
