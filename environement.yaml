@@ -52,3 +52,8 @@ parameter_defaults:
   key_name: KeyPair-test-YM
   image_name: Standard_CentOS_7.3_latest
   admin_password: e54@Cw5!
+
+#Security Groups
+  common_secgroup_name: cws-prod-common-secgrp
+  jumpbox_secgroup_name: cws-prod-jmbx-secgrp
+  k8ss_secgroup_name: cws-prod-k8ss-secgrp
