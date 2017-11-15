@@ -71,6 +71,8 @@ resources:
 
 outputs:
   mgdb_instance_ip:
-    description: The IP address of the deployed instance
-    value: { get_attr: [mongodb_instance, first_address] }
+    description: The hosname and the IP address of the deployed instance
+    value: 
+    - { get_attr: [ mongodb_instance, name ] }
+    - { get_attr: [ mongodb_instance, first_address ] }
     
