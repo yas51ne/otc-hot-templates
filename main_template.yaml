@@ -201,18 +201,18 @@ resources:
           common_secgroup: { get_resource: common_secgroup }
 
 outputs:
-  K8sMaster_nodes_ips:
-    description: IP adresses of the Kubernetes master nodes
-    value: { get_attr: [ resource_group_K8sMaster, k8sm_instance_ip ] }
-  K8sSlave_nodes_ips:
-    description: Ip adresses of the Kubernetes slave nodes
-    value: { get_attr: [ autoscaled_group_K8sSlave, k8ss_instance_ip ] }
-  GlusterFS_nodes_ips:
-    description: Ip adresses of the GlusterFS nodes
-    value: { get_attr: [ resource_group_GlusterFS, glfs_instance_ip ] }
-  MongoDB_nodes_ips:
-    description: Ip adresses of the MongoDB nodes
-    value: { get_attr: [ resource_group_MongoDB, mgdb_instance_ip ] }
-  Etcd_nodes_ips:
-    description: Ip adresses of the Etcd nodes
-    value: { get_attr: [ resource_group_Etcd, etcd_instance_ip ] }
+  K8sMaster_nodes_info:
+    description: Hostname and IP adresses of the Kubernetes master nodes
+    value: { get_attr: [ resource_group_K8sMaster, k8sm_instance_info ] }
+  K8sSlave_nodes_info:
+    description: Hostname and Ip adresses of the Kubernetes slave nodes
+    value: { get_attr: [ autoscaled_group_K8sSlave, k8ss_instance_info ] }
+  GlusterFS_nodes_info:
+    description: Hostname and Ip adresses of the GlusterFS nodes
+    value: { get_attr: [ resource_group_GlusterFS, glfs_instance_info ] }
+  MongoDB_nodes_info:
+    description: Hostname and Ip adresses of the MongoDB nodes
+    value: { get_attr: [ resource_group_MongoDB, mgdb_instance_info ] }
+  Etcd_nodes_info:
+    description: Hostname and Ip adresses of the Etcd nodes
+    value: { get_attr: [ resource_group_Etcd, etcd_instance_info ] }
