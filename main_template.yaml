@@ -60,6 +60,18 @@ parameters:
     type: string
     default: vol-etcd-00%index%
     description: Name of the Etcd Volume.
+  common_secgroup_name:
+    type: string
+    default: cws-common-secgrp
+    description: Name of the Common Security group.
+  jumpbox_secgroup_name:
+    type: string
+    default: cws-jmbx-secgrp
+    description: Name of the JumpBox Security group.
+  k8ss_secgroup_name:
+    type: string
+    default: cws-k8ss-secgrp
+    description: Name of the K8S Slaves Security group.
     
 resources:
   private_net:
@@ -94,7 +106,7 @@ resources:
   common_secgroup:
     type: OS::Neutron::SecurityGroup
     properties:
-      name: cws-common-secgrp
+      name:  { get_param: common_secgroup_name }
       description: Ping
       rules:
       - protocol: icmp
@@ -103,7 +115,7 @@ resources:
   k8ss_secgroup:
     type: OS::Neutron::SecurityGroup
     properties:
-      name: cws-k8ss-secgrp
+      name: { get_param: k8ss_secgroup_name }
       description: HTTPS and HTTP
       rules:
         - protocol: tcp
@@ -118,7 +130,7 @@ resources:
   jumpbox_secgroup:
     type: OS::Neutron::SecurityGroup
     properties:
-      name: cws-jmbx-secgrp
+      name:  { get_param: jumpbox_secgroup_name }
       description: SSH
       rules:
         - protocol: tcp
