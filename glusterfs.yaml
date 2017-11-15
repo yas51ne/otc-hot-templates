@@ -70,6 +70,8 @@ resources:
       instance_uuid: { get_resource: glusterfs_instance }
 
 outputs:
-  glfs_instance_ip:
-    description: The IP address of the deployed instance
-    value: { get_attr: [glusterfs_instance, first_address] }
+  glfs_instance_info:
+    description: The hostname and the IP address of the deployed instance
+    value: 
+    - { get_attr: [glusterfs_instance, name] }
+    - { get_attr: [glusterfs_instance, first_address] }
