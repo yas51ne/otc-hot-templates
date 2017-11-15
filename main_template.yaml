@@ -7,6 +7,11 @@ parameters:
     type: string
     description: >
       ID or name of public network for which Elastic IP addresses will be allocated
+  dns_servers:
+    type: comma_delimited_list
+    label: DNS nameservers
+    default: '100.125.4.25','8.8.8.8'
+    description: Comma separated list of DNS nameservers for the private network.
   vpc_name:
     type: string
     description: Name of the VPC
@@ -86,6 +91,7 @@ resources:
       network_id: { get_resource: private_net }
       cidr: { get_param: private_net_cidr }
       gateway_ip: { get_param: private_net_gateway }
+      dns_nameservers: { get_param: dns_servers }
       allocation_pools:
         - start: { get_param: private_net_pool_start }
           end: { get_param: private_net_pool_end }
