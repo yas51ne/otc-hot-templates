@@ -1,6 +1,6 @@
 heat_template_version: 2015-04-30
 
-description: Simple template to deploy a single mongodb instance
+description: Template to deploy a single mongodb instance
 
 parameters:
   key_name:
@@ -33,7 +33,7 @@ parameters:
   mongodb_volume_size:
     type: number
     default: 100
-    description: Private IP of the Instance.
+    description: Size of the Volume.
   mongodb_volume_name:
     type: string
     default: k8s-slave
