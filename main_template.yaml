@@ -150,7 +150,7 @@ resources:
           k8s_master_volume_name: { get_param: k8s_master_volume_name }
           common_secgroup: { get_resource: common_secgroup }
           
-  scaleup_group_K8sSlave:
+  autoscaled_group_K8sSlave:
     type: OS::Heat::AutoScalingGroup
     depends_on: router_interface
     properties:
