@@ -75,6 +75,6 @@ resources:
       instance_uuid: { get_resource: k8s_slave_instance }
 
 outputs:
-  k8s_instance_ip:
+  k8ss_instance_ip:
     description: The IP address of the deployed instance
     value: { get_attr: [k8s_slave_instance, first_address] }
