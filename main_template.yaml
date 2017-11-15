@@ -1,6 +1,6 @@
 heat_template_version: 2015-04-30
 
-description: Simple template to deploy the cws environement v1.0
+description: Template to deploy the CWS environement v1.0
 
 parameters:
   public_net:
