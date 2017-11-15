@@ -33,7 +33,7 @@ parameters:
   glusterfs_volume_size:
     type: number
     default: 100
-    description: Private IP of the Instance.
+    description: Size of the Volume.
   glusterfs_volume_name:
     type: string
     default: k8s-slave
