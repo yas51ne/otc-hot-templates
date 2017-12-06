@@ -1,0 +1,92 @@
+heat_template_version: 2015-04-30
+
+description: Template to deploy the CWS Data Production environement v2.0
+
+parameters:
+  k8s_master_volume_name:
+    type: string
+    default: vol-k8sm-00%index%
+    description: Name of the K8S Master Volume.
+  mongodb_volume_name:
+    type: string
+    default: vol-mgdb-00%index%
+    description: Name of the Mongodb Volume.
+  glusterfs_volume_name:
+    type: string
+    default: vol-glfs-00%index%
+    description: Name of the Glusterfs Volume.
+  jumpbox_volume_name:
+    type: string
+    default: vol-jumpbox-00%index%
+    description: Name of the JumpBox Volume.
+  k8s_master_volume_size:
+    type: number
+    default: 50
+    description: Kubernetes Master volume size.
+  mongodb_volume_size:
+    type: number
+    default: 100
+    description: MongoDB volume size.
+  glusterfs_volume_size:
+    type: number
+    default: 100
+    description: GlusterFS volume size.
+  jumpbox_volume_size:
+    type: number
+    default: 50
+    description: Jumpbox volume size.
+
+resources:
+  K8sMaster_volume_group:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 1
+      resource_def:
+        type: OS::Cinder::Volume
+        properties:
+          name: { get_param: k8s_master_volume_name }
+          size: { get_param: k8s_master_volume_size }
+
+  Mongodb_volume_group:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 2
+      resource_def:
+        type: OS::Cinder::Volume
+        properties:
+          name: { get_param: k8s_master_volume_name }
+          size: { get_param: k8s_master_volume_size }
+
+  Glusterfs_volume_group:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 1
+      resource_def:
+        type: OS::Cinder::Volume
+        properties:
+          name: { get_param: k8s_master_volume_name }
+          size: { get_param: k8s_master_volume_size }
+
+  Jumpbox_volume:
+    type: OS::Cinder::Volume
+    properties:
+      name: { get_param: jumpbox_volume_name }
+      size: { get_param: jumpbox_volume_size }
+
+outputs:
+  K8sMaster_nodes_volume_info:
+    description: Volume name and UUID of the Kubernetes master nodes
+    value: { get_attr: [ K8sMaster_volume_group, display_name ] }
+    value: { get_attr: [ K8sMaster_volume_group, size ] }
+  MongoDB_nodes_volume_info:
+    description: Volume name and UUID of the MongoDB nodes
+    value: { get_attr: [ Mongodb_volume_group, display_name ] }
+    value: { get_attr: [ Mongodb_volume_group, size ] }
+  GlusterFS_nodes_volume_info:
+    description: Volume name and UUID of the GlusterFS nodes
+    value: { get_attr: [ Glusterfs_volume_group, display_name ] }
+    value: { get_attr: [ Glusterfs_volume_group, size ] }
+  JumpBox_nodes_volume_info:
+    description: Volume name and UUID of the JumpBox nodes
+    value: { get_attr: [ Jumpbox_volume, display_name ] }
+    value: { get_attr: [ Jumpbox_volume, size ] }
