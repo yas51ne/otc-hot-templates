@@ -1,7 +1,6 @@
 # otc-hot-templates
 
-This template help to create an CWS production environement in the T-Systems Cloud 'OTC'.
-
+This template help to create an example of kubernetes glusterfs and mongodb infrastructure in the T-Systems Cloud 'OTC'.
 
 ## Getting Started
 
